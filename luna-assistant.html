@@ -17,6 +17,43 @@
       This page requires JavaScript to display.
     </div>
   </noscript>
+<script>
+(function(){
+  // Wait for React to render the nav, then swap the logo img
+  var SVG_URI = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjIwIj48ZGVmcz48Y2xpcFBhdGggaWQ9Im1yIj48cGF0aCBkPSJNMTAwIDhDMTU1IDggMTkyIDUwIDE5MiAxMDRDMTkyIDE1OCAxNjIgMjAwIDExOCAyMTJDODggMjIwIDQyIDIwNiAyMCAxNzhDLTIgMTUwIDQgMTAwIDIyIDY4QzQyIDM0IDcyIDggMTAwIDhaIi8+PC9jbGlwUGF0aD48L2RlZnM+PHBhdGggZD0iTTEwMCA4QzE1NSA4IDE5MiA1MCAxOTIgMTA0QzE5MiAxNTggMTYyIDIwMCAxMTggMjEyQzg4IDIyMCA0MiAyMDYgMjAgMTc4Qy0yIDE1MCA0IDEwMCAyMiA2OEM0MiAzNCA3MiA4IDEwMCA4WiIgZmlsbD0iI0YyQUYyNSIvPjxyZWN0IHg9IjAiIHk9IjU4IiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQ0IiBmaWxsPSIjRUM3QTIzIiBjbGlwLXBhdGg9InVybCgjbXIpIi8+PHJlY3QgeD0iMCIgeT0iMTAyIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjUyIiBmaWxsPSIjRTk1MjdGIiBjbGlwLXBhdGg9InVybCgjbXIpIi8+PHJlY3QgeD0iMCIgeT0iMTU0IiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjcwIiBmaWxsPSIjOUI1OUI2IiBjbGlwLXBhdGg9InVybCgjbXIpIi8+PC9zdmc+";
+  function swapLogo() {
+    var imgs = document.querySelectorAll('nav img, div img[alt=""]');
+    imgs.forEach(function(img) {
+      if (img.style.height === '34px' || img.getAttribute('style') && img.getAttribute('style').includes('height:34')) {
+        img.src = SVG_URI;
+        img.style.background = 'none';
+      }
+    });
+    // Also handle: img next to a span containing "moonrise"
+    var allImgs = document.querySelectorAll('img');
+    allImgs.forEach(function(img) {
+      var next = img.nextElementSibling;
+      if (next && next.tagName === 'SPAN' && next.textContent && next.textContent.trim().toLowerCase().includes('moonrise')) {
+        img.src = SVG_URI;
+        img.style.background = 'none';
+      }
+    });
+  }
+  // Run after page renders
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(swapLogo, 500); setTimeout(swapLogo, 1500); });
+  } else {
+    setTimeout(swapLogo, 500);
+    setTimeout(swapLogo, 1500);
+  }
+  // MutationObserver as fallback for React rendering
+  var observer = new MutationObserver(function() { swapLogo(); });
+  document.addEventListener('DOMContentLoaded', function() {
+    observer.observe(document.body, {childList: true, subtree: true});
+    setTimeout(function() { observer.disconnect(); }, 5000);
+  });
+})();
+</script>
 </head>
 <body>
   <div id="__bundler_thumbnail"><svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2AF25"></stop><stop offset=".25" stop-color="#EC7A23"></stop><stop offset=".5" stop-color="#E9527F"></stop><stop offset=".75" stop-color="#A8489D"></stop><stop offset="1" stop-color="#7A5CA8"></stop></linearGradient></defs><ellipse cx="600" cy="400" rx="210" ry="190" fill="url(#g)"></ellipse><ellipse cx="560" cy="390" rx="14" ry="26" fill="#fff"></ellipse><ellipse cx="640" cy="390" rx="14" ry="26" fill="#fff"></ellipse></svg></div>
