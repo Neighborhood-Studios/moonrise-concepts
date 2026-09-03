@@ -1,0 +1,205 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<meta property="og:title" content="Moonrise — Luna Assistant">
+<meta property="og:type" content="website">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Moonrise — Luna Assistant</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Colors */
+  --ink: #1A1025;
+  --ink-soft: rgba(26,16,37,.62);
+  --ink-faint: rgba(26,16,37,.36);
+  --surface-page: #FFF9F1;
+  --paper: #FFFFFF;
+  --cream: #FFF9F1;
+  --sand: #F5EFE6;
+  --line: rgba(26,16,37,.10);
+
+  /* Accent */
+  --accent-primary: #7C3AED;
+  --sun-pink: #F472B6;
+  --sun-violet-soft: rgba(124,58,237,.10);
+  --sun-yellow-soft: rgba(251,191,36,.18);
+
+  /* Gradients */
+  --gradient-sunset: linear-gradient(135deg, #7C3AED 0%, #EC4899 50%, #F59E0B 100%);
+
+  /* Shadows */
+  --shadow-button: 0 4px 20px rgba(124,58,237,.35);
+  --shadow-card: 0 8px 32px rgba(26,16,37,.10);
+  --shadow-raised: 0 20px 60px rgba(26,16,37,.14);
+
+  /* Typography */
+  --font-display: 'Nunito', 'Varela Round', system-ui, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--surface-page);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+html,body{margin:0;background:var(--surface-page)}
+@keyframes lunaDot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+@keyframes lunaPop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+</style></head><body><div id="root"></div>
+
+<script type="text/babel">
+function Page(){
+const {AsstNav,AsstHero,AsstCapabilities,AsstMemory,AsstSafety,AsstMagic,AsstFeedback}=window;
+return <div>
+<AsstNav/>
+<AsstHero/>
+<AsstCapabilities/>
+<AsstMemory/>
+<AsstSafety/>
+<AsstMagic/>
+<AsstFeedback/>
+</div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Page/>);
+</script><script type="text/babel">
+const AGRAD='linear-gradient(180deg,#F2AF25,#EC7A23,#E9527F,#A8489D,#7A5CA8)';
+const ABLOB='58% 42% 55% 45% / 52% 55% 45% 48%';
+function AFace({size=34,style}){return <div style={{width:size,height:size,flex:'none',background:AGRAD,borderRadius:ABLOB,display:'flex',alignItems:'center',justifyContent:'center',...style}}><div style={{display:'flex',gap:size*0.13}}><i style={{width:size*0.11,height:size*0.2,background:'#fff',borderRadius:99,display:'block'}}></i><i style={{width:size*0.11,height:size*0.2,background:'#fff',borderRadius:99,display:'block'}}></i></div></div>;}
+const ANOTE='#'; /* Apple Note link for idea II — TBD */
+function ABtn({children,href,tone='violet',size='lg',onClick}){
+const bg=tone==='violet'?'var(--accent-primary)':tone==='pink'?'var(--sun-pink)':'var(--ink)';
+const [hov,setHov]=React.useState(false);
+return <a href={href||'#'} onClick={onClick} target={href&&href.startsWith('http')?'_blank':undefined} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
+style={{display:'inline-block',fontFamily:'var(--font-display)',fontWeight:700,fontSize:size==='lg'?19:16,color:'#fff',background:bg,padding:size==='lg'?'16px 34px':'11px 24px',borderRadius:999,boxShadow:'var(--shadow-button)',transform:hov?'translateY(-2px)':'none',transition:'all .18s cubic-bezier(.34,1.56,.64,1)',filter:hov?'brightness(1.08)':'none'}}>{children}</a>;
+}
+function AsstNav(){
+return <div style={{position:'sticky',top:0,zIndex:50,background:'rgba(255,249,241,.85)',backdropFilter:'blur(12px)',borderBottom:'1px solid var(--line)'}}>
+<div style={{maxWidth:1180,margin:'0 auto',display:'flex',alignItems:'center',justifyContent:'space-between',padding:'12px 24px'}}>
+<div style={{display:'flex',alignItems:'center',gap:10}}><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='34' viewBox='0 0 120 34'%3E%3Ccircle cx='17' cy='17' r='14' fill='%237C3AED' opacity='.15'/%3E%3Ccircle cx='17' cy='17' r='10' fill='%237C3AED' opacity='.3'/%3E%3Ccircle cx='17' cy='17' r='6' fill='%237C3AED'/%3E%3C/svg%3E" style={{height:34}} alt=""/><span style={{fontFamily:'var(--font-display)',fontWeight:800,fontSize:21,color:'var(--ink)'}}>moonrise</span></div>
+<ABtn size="sm" onClick={e=>{e.preventDefault();const el=document.getElementById('ask');if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-200,behavior:'smooth'});el.focus();}}}>Say hi 👋</ABtn>
+</div></div>;
+}
+const DEMO={
+'ice cream':[['u',"I'd like to start a local ice cream business, but I don't know where to start. I just know I want to start with a cart and sell at baseball games."],['l',"Awesome, let's do it! I've started a project called Logan's Ice Cream Cart. First three steps: pick your 4 starting flavors, price a used cart, and find out who runs concessions at the ballpark. Want to start with flavors? 🍦"]],
+'dress':[['u',"I want to design and sew my own dress. Can you help?"],['l',"Yes! We'll sketch it first, then pick a pattern and fabric. I'll turn your sketch into a real sewing pattern with your measurements. Grab some paper — draw the dress you're imagining. ✏️"]],
+'golf':[['u',"What's going on with my golf swing? Why am I always slicing it?"],['l',"Send me a quick video of your swing 🎥 — a slice almost always means your clubface is open at impact. I'll check your grip and give you one drill to fix it this week."]],
+'black holes':[['u',"How big are black holes?"],['l',"From smaller than a city to bigger than our whole solar system! The one in the middle of our galaxy is 4 million times heavier than the Sun. Want me to make you a size-comparison you can scroll?"]],
+};
+const CHIPS=['ice cream','dress','golf','black holes'];
+function AsstHero(){
+const [convo,setConvo]=React.useState(null);
+const [step,setStep]=React.useState(0);
+const [typing,setTyping]=React.useState(false);
+const [val,setVal]=React.useState('');
+const run=(key,text)=>{
+const c=DEMO[key]||[['u',text],['l',"Hi! I'd love to help with that. This page is just a concept — but on the real Moonrise, we'd already be working on it together. 👋"]];
+setConvo(c);setStep(1);setTyping(true);
+setTimeout(()=>{setTyping(false);setStep(2);},1200);
+};
+const submit=()=>{const t=val.trim();if(!t)return;const key=CHIPS.find(k=>t.toLowerCase().includes(k));run(key,t);setVal('');};
+return <div style={{maxWidth:820,margin:'0 auto',padding:'76px 24px 64px',textAlign:'center'}}>
+<div style={{display:'flex',justifyContent:'center'}}><AFace size={92}/></div>
+<h1 style={{margin:'26px 0 0',fontFamily:'var(--font-display)',fontWeight:800,fontSize:'clamp(52px,7vw,84px)',lineHeight:1.02,color:'var(--ink)',letterSpacing:'-0.015em'}}>Hi, I'm <span style={{background:AGRAD,WebkitBackgroundClip:'text',backgroundClip:'text',color:'transparent'}}>Luna</span>.</h1>
+<p style={{margin:'20px auto 0',fontSize:21,lineHeight:1.5,fontWeight:600,color:'var(--ink)',maxWidth:560}}>An AI assistant built by Moonrise that helps kids learn, create, and play. From building rockets to cooking risotto, there's nothing we can't do together.</p>
+<div style={{margin:'32px auto 0',maxWidth:600}}>
+<div style={{display:'flex',gap:8,background:'var(--paper)',border:'1.5px solid var(--line)',borderRadius:999,padding:6,boxShadow:'var(--shadow-card)'}}>
+<input id="ask" value={val} onChange={e=>setVal(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')submit();}} placeholder="Say hi or ask me anything…" style={{flex:1,border:'none',outline:'none',background:'transparent',fontFamily:'var(--font-body)',fontWeight:600,fontSize:17,color:'var(--ink)',padding:'10px 18px'}}/>
+<button onClick={submit} style={{fontFamily:'var(--font-display)',fontWeight:700,fontSize:16,color:'#fff',background:'var(--accent-primary)',border:'none',borderRadius:999,padding:'12px 26px',cursor:'pointer'}}>Ask 👋</button>
+</div>
+<div style={{display:'flex',gap:8,justifyContent:'center',flexWrap:'wrap',marginTop:14}}>
+{[['ice cream','Start an ice cream cart 🍦'],['dress','Sew my own dress'],['golf','Fix my golf slice'],['black holes','How big are black holes?']].map(([k,l])=><button key={k} onClick={()=>run(k)} style={{fontFamily:'var(--font-body)',fontWeight:700,fontSize:14,color:'var(--ink-soft)',background:'var(--sand)',border:'none',borderRadius:999,padding:'8px 16px',cursor:'pointer'}}>{l}</button>)}
+</div>
+{convo&&<div style={{marginTop:24,textAlign:'left',background:'var(--paper)',border:'1px solid var(--line)',borderRadius:24,boxShadow:'var(--shadow-raised)',padding:20,display:'flex',flexDirection:'column',gap:12,animation:'lunaPop .35s cubic-bezier(.34,1.56,.64,1)'}}>
+{step>=1&&<div style={{alignSelf:'flex-end',background:'var(--accent-primary)',color:'#fff',borderRadius:18,borderBottomRightRadius:6,padding:'10px 14px',fontSize:15,fontWeight:600,lineHeight:1.45,maxWidth:'80%',animation:'lunaPop .3s'}}>{convo[0][1]}</div>}
+{typing&&<div style={{display:'flex',gap:8,alignItems:'flex-end'}}><AFace size={26}/><div style={{background:'var(--sand)',borderRadius:18,borderBottomLeftRadius:6,padding:'12px 14px',display:'flex',gap:4}}>{[0,1,2].map(i=><span key={i} style={{width:7,height:7,borderRadius:'50%',background:'var(--ink-faint)',display:'inline-block',animation:`lunaDot 1s ${i*0.15}s infinite`}}></span>)}</div></div>}
+{step>=2&&<div style={{display:'flex',gap:8,alignItems:'flex-end',maxWidth:'92%'}}><AFace size={26}/><div style={{background:'var(--sand)',color:'var(--ink)',borderRadius:18,borderBottomLeftRadius:6,padding:'10px 14px',fontSize:15,fontWeight:600,lineHeight:1.5,animation:'lunaPop .3s'}}>{convo[1][1]}</div></div>}
+</div>}
+</div>
+</div>;
+}
+const CAPS=[
+['Luna answers your questions.','Get answers and help with anything you can dream up.','#7A5CA8',["How big are black holes?","Why is the ocean salty?"]],
+['Luna helps you learn.','Go way beyond school and grades, from sewing to black holes to 3D printing.','#E9527F',["Create a Montessori-inspired sixth grade science course that maps to Georgia state standards.","Write 20-30 stories about my interests and structure each as a lesson."]],
+['Luna builds with you.','Make things with Luna and share with friends.','#EC7A23',["Help me start a dog walking business in my neighborhood.","Let's build the old Yankee Stadium together in Minecraft."]],
+['Luna coaches you.','Get 1-on-1 coaching for any sport without the cost and hassle.','#A8489D',["What's going on with my golf swing?","Help me break 90 by April so I can make the golf team."]],
+['Luna plays with you.','Games, images, videos, stickers, and more.','#F2AF25',["Turn my friend Sally into an Axolotl.","Create a game called Skunk Wars."]],
+['Luna finds things for you.','Explore thousands of things to do together.','#33235B',["Architecture for 5th graders · course","The world's best chocolate soufflé · recipe"]],
+];
+function AsstCapabilities(){
+return <div style={{maxWidth:1180,margin:'0 auto',padding:'56px 24px'}}>
+<h2 style={{margin:'0 0 36px',textAlign:'center',fontFamily:'var(--font-display)',fontWeight:800,fontSize:44,color:'var(--ink)'}}>There's nothing we can't do together.</h2>
+<div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:20}}>
+{CAPS.map(([t,d,c,ex])=><div key={t} style={{background:'var(--paper)',border:'1px solid var(--line)',borderRadius:24,boxShadow:'var(--shadow-card)',padding:'26px 24px',display:'flex',flexDirection:'column',gap:12}}>
+<div style={{width:40,height:40,background:c,borderRadius:ABLOB}}></div>
+<h3 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:700,fontSize:22,color:'var(--ink)'}}>{t}</h3>
+<p style={{margin:0,fontSize:15,fontWeight:600,lineHeight:1.5,color:'var(--ink-soft)'}}>{d}</p>
+<div style={{display:'flex',flexDirection:'column',gap:8,marginTop:'auto'}}>
+{ex.map(x=><div key={x} style={{background:'var(--sand)',borderRadius:12,padding:'9px 13px',fontSize:13.5,fontWeight:600,color:'var(--ink)',lineHeight:1.45}}>"{x}"</div>)}
+</div>
+</div>)}
+</div>
+</div>;
+}
+function AsstMemory(){
+return <div style={{background:'var(--sun-violet-soft)',padding:'72px 0'}}>
+<div style={{maxWidth:1180,margin:'0 auto',padding:'0 24px',display:'grid',gridTemplateColumns:'1fr 1fr',gap:32,alignItems:'stretch'}}>
+<div style={{background:'var(--paper)',borderRadius:24,boxShadow:'var(--shadow-card)',padding:'30px 28px'}}>
+<h3 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:28,color:'var(--ink)'}}>Luna remembers everything.</h3>
+<p style={{margin:'8px 0 20px',fontSize:16,fontWeight:600,color:'var(--ink-soft)'}}>Come back tomorrow and pick up where you left off.</p>
+<div style={{display:'flex',flexDirection:'column',gap:10}}>
+<div style={{alignSelf:'flex-end',background:'var(--accent-primary)',color:'#fff',borderRadius:18,borderBottomRightRadius:6,padding:'10px 14px',fontSize:15,fontWeight:600,maxWidth:'80%'}}>Can we keep working on my dress?</div>
+<div style={{display:'flex',gap:8,alignItems:'flex-end'}}><AFace size={26}/><div style={{background:'var(--sand)',color:'var(--ink)',borderRadius:18,borderBottomLeftRadius:6,padding:'10px 14px',fontSize:15,fontWeight:600,lineHeight:1.5}}>Of course. Yesterday we finished the pattern and chose the fabric. Today we need to pin and cut the first two pieces.</div></div>
+</div>
+</div>
+<div style={{background:'var(--paper)',borderRadius:24,boxShadow:'var(--shadow-card)',padding:'30px 28px'}}>
+<h3 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:28,color:'var(--ink)'}}>Luna checks in.</h3>
+<p style={{margin:'8px 0 20px',fontSize:16,fontWeight:600,color:'var(--ink-soft)'}}>Messages that motivate and inspire you to keep going.</p>
+<div style={{display:'flex',flexDirection:'column',gap:10}}>
+{["Morning 👋 You were one step away from finishing your dog-walking flyer yesterday. Want to wrap it up?","You've mastered three of the four ideas in this unit. I made a quick challenge for the last one.","Your golf tryout is six weeks away. Ready for today's practice?"].map(m=><div key={m} style={{display:'flex',gap:10,alignItems:'flex-start',background:'var(--cream)',border:'1px solid var(--line)',borderRadius:16,padding:'12px 14px'}}><AFace size={28}/><div><div style={{fontFamily:'var(--font-display)',fontWeight:700,fontSize:13.5,color:'var(--ink)'}}>Luna <span style={{fontFamily:'var(--font-body)',fontWeight:600,color:'var(--ink-faint)',fontSize:12}}>· now</span></div><div style={{fontSize:14,fontWeight:600,color:'var(--ink)',lineHeight:1.45}}>{m}</div></div></div>)}
+</div>
+</div>
+</div>
+</div>;
+}
+function AsstSafety(){
+return <div style={{background:'var(--ink)',padding:'72px 0'}}>
+<div style={{maxWidth:1180,margin:'0 auto',padding:'0 24px',textAlign:'center'}}>
+<h2 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:40,color:'#fff'}}>Luna keeps you safe.</h2>
+<p style={{margin:'14px auto 0',fontSize:18,fontWeight:600,lineHeight:1.6,color:'#fff',opacity:.85,maxWidth:560}}>Parents can always see what their kids are asking, learning, making, and doing on Moonrise.</p>
+<div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',marginTop:28}}>
+{['AI-powered monitoring and alerts','COPPA compliant','No advertising or data sharing','Customizable parental controls','Safety systems audited every week'].map(t=><span key={t} style={{background:'rgba(255,255,255,.08)',border:'1px solid rgba(255,255,255,.14)',borderRadius:999,padding:'10px 20px',fontFamily:'var(--font-body)',fontWeight:700,fontSize:15,color:'#fff'}}>{t}</span>)}
+</div>
+</div>
+</div>;
+}
+function AsstMagic(){
+return <div style={{background:'var(--sand)',padding:'72px 0'}}>
+<div style={{maxWidth:800,margin:'0 auto',padding:'0 24px'}}>
+<span style={{fontFamily:'var(--font-body)',fontWeight:800,fontSize:13,letterSpacing:'.08em',textTransform:'uppercase',color:'var(--accent-primary)'}}>For founders & experts</span>
+<h2 style={{margin:'10px 0 0',fontFamily:'var(--font-display)',fontWeight:800,fontSize:38,color:'var(--ink)'}}>The magic of the idea.</h2>
+<div style={{display:'flex',flexDirection:'column',gap:18,marginTop:24,fontSize:18,lineHeight:1.6,color:'var(--ink)',fontWeight:600}}>
+<p style={{margin:0}}><b>An assistant, not a world.</b> Versus concept I, this framing is direct: Luna is the kid's ChatGPT — one product, one relationship, zero learning curve for parents to understand.</p>
+<p style={{margin:0}}><b>Memory is the product.</b> Luna picks up yesterday's dress project and knows the golf tryout is in six weeks. Persistent projects turn chats into a compounding relationship no reset-every-session chatbot can match.</p>
+<p style={{margin:0}}><b>Proactive, not reactive.</b> Check-ins flip the loop: Luna reaches out with the next step. That's the difference between a tool kids use and a coach kids follow through with.</p>
+<p style={{margin:0}}><b>Trust is the moat.</b> Full parent visibility, weekly-audited safety systems, COPPA, no ads. Expensive to retrofit, and the reason a parent picks Luna over a general assistant.</p>
+</div>
+</div>
+</div>;
+}
+function AsstFeedback(){
+return <div style={{maxWidth:1180,margin:'0 auto',padding:'80px 24px 100px',textAlign:'center'}}>
+<div style={{display:'flex',justifyContent:'center',marginBottom:18}}><AFace size={56}/></div>
+<h2 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:36,color:'var(--ink)'}}>Please give me your feedback.</h2>
+<p style={{margin:'12px auto 0',fontSize:17,fontWeight:600,lineHeight:1.6,color:'var(--ink-soft)',maxWidth:500}}>We're trying to get to the bottom of this idea — especially what kills it. Add your thoughts to the shared note.</p>
+<div style={{marginTop:26}}><ABtn tone="pink" href={ANOTE}>Share your thoughts →</ABtn></div>
+<p style={{fontSize:13,fontWeight:600,color:'var(--ink-faint)',marginTop:12}}>Opens a shared Apple Note.</p>
+</div>;
+}
+Object.assign(window,{AsstNav,AsstHero,AsstCapabilities,AsstMemory,AsstSafety,AsstMagic,AsstFeedback,AFace,ABtn});
+</script>
+</body></html>

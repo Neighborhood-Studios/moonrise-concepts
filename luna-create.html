@@ -1,0 +1,195 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<meta property="og:title" content="Moonrise — Luna Create">
+<meta property="og:type" content="website">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Moonrise — Luna Create</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Colors */
+  --ink: #1A1025;
+  --ink-soft: rgba(26,16,37,.62);
+  --ink-faint: rgba(26,16,37,.36);
+  --surface-page: #FFF9F1;
+  --paper: #FFFFFF;
+  --cream: #FFF9F1;
+  --sand: #F5EFE6;
+  --line: rgba(26,16,37,.10);
+
+  /* Accent */
+  --accent-primary: #7C3AED;
+  --sun-pink: #F472B6;
+  --sun-violet-soft: rgba(124,58,237,.10);
+  --sun-yellow-soft: rgba(251,191,36,.18);
+
+  /* Gradients */
+  --gradient-sunset: linear-gradient(135deg, #7C3AED 0%, #EC4899 50%, #F59E0B 100%);
+
+  /* Shadows */
+  --shadow-button: 0 4px 20px rgba(124,58,237,.35);
+  --shadow-card: 0 8px 32px rgba(26,16,37,.10);
+  --shadow-raised: 0 20px 60px rgba(26,16,37,.14);
+
+  /* Typography */
+  --font-display: 'Nunito', 'Varela Round', system-ui, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--surface-page);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+html,body{margin:0;background:var(--surface-page)}
+@keyframes lunaPop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes lunaToast{0%{opacity:0;transform:translateY(16px)}10%,85%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-8px)}}
+</style></head><body><div id="root"></div>
+
+<script type="text/babel">
+function Page(){
+const {MakeNav,MakeHero,MakeHow,MakeSafety,MakeMagic,MakeFeedback}=window;
+return <div>
+<MakeNav/>
+<MakeHero/>
+<MakeHow/>
+<MakeSafety/>
+<MakeMagic/>
+<MakeFeedback/>
+</div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Page/>);
+</script><script type="text/babel">
+const MGRAD='linear-gradient(180deg,#F2AF25,#EC7A23,#E9527F,#A8489D,#7A5CA8)';
+const MBLOB='58% 42% 55% 45% / 52% 55% 45% 48%';
+function MFace({size=34,style}){return <div style={{width:size,height:size,flex:'none',background:MGRAD,borderRadius:MBLOB,display:'flex',alignItems:'center',justifyContent:'center',...style}}><div style={{display:'flex',gap:size*0.13}}><i style={{width:size*0.11,height:size*0.2,background:'#fff',borderRadius:99,display:'block'}}></i><i style={{width:size*0.11,height:size*0.2,background:'#fff',borderRadius:99,display:'block'}}></i></div></div>;}
+function MBtn({children,href,tone='violet',size='lg',onClick}){
+const bg=tone==='violet'?'var(--accent-primary)':tone==='pink'?'var(--sun-pink)':'var(--ink)';
+const [hov,setHov]=React.useState(false);
+return <a href={href||'#'} onClick={onClick} target={href&&href.startsWith('http')?'_blank':undefined} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
+style={{display:'inline-block',fontFamily:'var(--font-display)',fontWeight:700,fontSize:size==='lg'?19:16,color:'#fff',background:bg,padding:size==='lg'?'16px 34px':'11px 24px',borderRadius:999,boxShadow:'var(--shadow-button)',transform:hov?'translateY(-2px)':'none',transition:'all .18s cubic-bezier(.34,1.56,.64,1)',filter:hov?'brightness(1.08)':'none'}}>{children}</a>;
+}
+function MakeNav(){
+return <div style={{position:'sticky',top:0,zIndex:50,background:'rgba(255,249,241,.85)',backdropFilter:'blur(12px)',borderBottom:'1px solid var(--line)'}}>
+<div style={{maxWidth:1180,margin:'0 auto',display:'flex',alignItems:'center',justifyContent:'space-between',padding:'12px 24px'}}>
+<div style={{display:'flex',alignItems:'center',gap:10}}><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='34' viewBox='0 0 120 34'%3E%3Ccircle cx='17' cy='17' r='14' fill='%237C3AED' opacity='.15'/%3E%3Ccircle cx='17' cy='17' r='10' fill='%237C3AED' opacity='.3'/%3E%3Ccircle cx='17' cy='17' r='6' fill='%237C3AED'/%3E%3C/svg%3E" style={{height:34}} alt=""/><span style={{fontFamily:'var(--font-display)',fontWeight:800,fontSize:21,color:'var(--ink)'}}>moonrise</span></div>
+<MBtn size="sm" onClick={e=>{e.preventDefault();const el=document.getElementById('makebar');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-220,behavior:'smooth'})}}>Say hi 👋</MBtn>
+</div></div>;
+}
+const BUILDS={
+Event:{prompt:"Make a field trip to Georgia Aquarium on Friday, September 4th from 1-4:30pm…",color:'#7A5CA8',kind:'EVENT',title:'Field trip · Georgia Aquarium',rows:[['📅','Fri, Sep 4 · 1:00-4:30pm'],['📍','Meet at south side parking lot by 12:50'],['👟','Bring comfortable shoes · lunch not included'],['👥','14 going · 6 spots left']],cta:'RSVP'},
+App:{prompt:"Build an app like Wordle for my 9th grade class using only glossary words from biology",color:'#E9527F',kind:'APP',title:'BioWordle',rows:[['🎯','Daily puzzle · 5-letter biology terms'],['🏆','Class leaderboard · 27 players'],['🔤',"Today's word: M _ T _ _ IS"],['📈','Streak: 6 days']],cta:'Play'},
+Game:{prompt:"Create a game called Skunk Wars where a civilization of skunks has to rid the air of sulfur…",color:'#EC7A23',kind:'GAME',title:'Skunk Wars',rows:[['💨','Level 3: The Sulfur Swamps'],['🦨','Squad: Stinky, Fumes & Whiff'],['⭐','4.8 from 112 kid reviews'],['🎮','2,304 plays this week']],cta:'Play'},
+Course:{prompt:"Create a Montessori-inspired sixth grade science course that maps to Georgia state standards",color:'#A8489D',kind:'COURSE',title:'6th Grade Science, Montessori-style',rows:[['📚','12 units · 48 hands-on lessons'],['✅','Maps to Georgia state standards'],['🔬','Unit 1: What is a hypothesis?'],['👩‍🏫','Taught by you + Luna']],cta:'Start'},
+Business:{prompt:"I'd like to start a local ice cream business with a cart at baseball games",color:'#F2AF25',kind:'BUSINESS',title:"Logan's Ice Cream Cart",rows:[['🍦','4 flavors · $3 a scoop'],['⚾','Sat home games · Field 2 entrance'],['💵','$142 earned this month'],['📋','Next: restock sprinkles']],cta:'Visit'},
+Community:{prompt:"Start a group for my homeschool co-op where I can share courses, posts, and events",color:'#33235B',kind:'COMMUNITY',title:'Westside Homeschool Co-op',rows:[['👥','86 members · parents & students'],['📌','New: aquarium field trip Friday'],['📚','12 shared courses'],['🔒','Private · invite only']],cta:'Join'},
+};
+const MKEYS=Object.keys(BUILDS);
+function MakeHero(){
+const [key,setKey]=React.useState('Event');
+const [phase,setPhase]=React.useState(2);
+const [shownRows,setShownRows]=React.useState(4);
+const build=BUILDS[key];
+const run=(k)=>{
+setKey(k);setPhase(0);setShownRows(0);
+setTimeout(()=>setPhase(1),350);
+[0,1,2,3].forEach(i=>setTimeout(()=>setShownRows(i+1),700+i*260));
+setTimeout(()=>setPhase(2),700+4*260+150);
+};
+return <div style={{maxWidth:1180,margin:'0 auto',padding:'72px 24px 64px',display:'grid',gridTemplateColumns:'1.05fr 1fr',gap:56,alignItems:'center'}}>
+<div>
+<h1 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:'clamp(54px,6.5vw,86px)',lineHeight:1.02,color:'var(--ink)',letterSpacing:'-0.015em'}}>Do more<br/>than <span style={{background:MGRAD,WebkitBackgroundClip:'text',backgroundClip:'text',color:'transparent'}}>chat</span>.</h1>
+<p style={{margin:'22px 0 0',fontSize:21,lineHeight:1.5,fontWeight:600,color:'var(--ink)',maxWidth:480}}>Make things with AI and share in a few taps. Apps, events, communities, stickers, games, products, songs, courses, projects, docs, and more. It just works.</p>
+<div style={{display:'flex',alignItems:'center',gap:16,marginTop:28}}>
+<MBtn onClick={e=>{e.preventDefault();run(MKEYS[(MKEYS.indexOf(key)+1)%MKEYS.length])}}>Say hi 👋</MBtn>
+<span style={{fontSize:13.5,fontWeight:600,color:'var(--ink-soft)'}}>Luna starts getting to know you<br/>from the first conversation.</span>
+</div>
+<div id="makebar" style={{display:'flex',gap:8,flexWrap:'wrap',marginTop:36}}>
+{MKEYS.map(k=><button key={k} onClick={()=>run(k)} style={{fontFamily:'var(--font-body)',fontWeight:800,fontSize:14,padding:'9px 18px',borderRadius:999,border:'none',cursor:'pointer',background:key===k?BUILDS[k].color:'var(--sand)',color:key===k?'#fff':'var(--ink-soft)',transition:'all .2s'}}>{k}</button>)}
+</div>
+</div>
+<div>
+<div style={{background:'var(--paper)',border:'1px solid var(--line)',borderRadius:20,boxShadow:'var(--shadow-card)',padding:'14px 18px',fontSize:14.5,fontWeight:600,color:'var(--ink-soft)',lineHeight:1.5,display:'flex',gap:10}}><MFace size={24}/><span>"{build.prompt}"</span></div>
+<div style={{display:'flex',justifyContent:'center',padding:'10px 0'}}><span style={{color:'var(--ink-faint)',fontSize:20}}>↓</span></div>
+<div style={{background:'var(--paper)',borderRadius:24,boxShadow:'var(--shadow-raised)',overflow:'hidden',minHeight:320,animation:phase===1?'lunaPop .35s':'none'}}>
+{phase===0?<div style={{padding:24,display:'flex',flexDirection:'column',gap:12}}>{[90,60,75,50].map((w,i)=><div key={i} style={{height:16,width:w+'%',borderRadius:99,background:'var(--sand)'}}></div>)}<div style={{fontSize:13,fontWeight:700,color:'var(--ink-faint)',marginTop:8}}>Luna is building…</div></div>:
+<div>
+<div style={{background:build.color,padding:'18px 22px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+<div><div style={{fontSize:11,fontWeight:800,letterSpacing:'.1em',color:'#fff',opacity:.8}}>{build.kind}</div><div style={{fontFamily:'var(--font-display)',fontWeight:800,fontSize:24,color:'#fff'}}>{build.title}</div></div>
+<MFace size={34}/>
+</div>
+<div style={{padding:'16px 22px',display:'flex',flexDirection:'column',gap:11}}>
+{build.rows.slice(0,shownRows).map(([ic,t],i)=><div key={i} style={{display:'flex',gap:10,alignItems:'center',fontSize:15,fontWeight:600,color:'var(--ink)',animation:'lunaPop .3s'}}><span style={{fontSize:16}}>{ic}</span>{t}</div>)}
+</div>
+{phase===2&&<div style={{display:'flex',gap:8,padding:'4px 22px 20px',animation:'lunaPop .3s'}}>
+<span style={{fontFamily:'var(--font-display)',fontWeight:700,fontSize:15,color:'#fff',background:build.color,borderRadius:999,padding:'9px 22px'}}>{build.cta}</span>
+{['Edit','Share','Earn'].map(a=><span key={a} style={{fontFamily:'var(--font-display)',fontWeight:700,fontSize:15,color:'var(--ink-soft)',background:'var(--sand)',borderRadius:999,padding:'9px 18px'}}>{a}</span>)}
+</div>}
+</div>}
+</div>
+</div>
+</div>;
+}
+function MakeHow(){
+const steps=[
+['Create','Say what you want to build and watch it appear before your eyes.','#7A5CA8'],
+['Edit',"Make changes manually or with AI. You don't have to prompt every time.",'#E9527F'],
+['Share','Publish on Moonrise or share privately with followers, contacts, friends, and family.','#EC7A23'],
+['Earn','Turn on monetization and connect Stripe to make money from what you create.','#A8489D']];
+return <div style={{maxWidth:1180,margin:'0 auto',padding:'56px 24px 64px'}}>
+<h2 style={{margin:'0 0 36px',textAlign:'center',fontFamily:'var(--font-display)',fontWeight:800,fontSize:44,color:'var(--ink)'}}>Create. Edit. Share. Earn.</h2>
+<div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:18}}>
+{steps.map(([t,d,c],i)=><div key={t} style={{background:'var(--paper)',border:'1px solid var(--line)',borderRadius:24,boxShadow:'var(--shadow-card)',padding:'24px 22px'}}>
+<div style={{display:'flex',alignItems:'center',gap:10,marginBottom:12}}><span style={{width:34,height:34,borderRadius:MBLOB,background:c,color:'#fff',display:'inline-flex',alignItems:'center',justifyContent:'center',fontFamily:'var(--font-display)',fontWeight:800,fontSize:16}}>{i+1}</span><h3 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:24,color:'var(--ink)'}}>{t}</h3></div>
+<p style={{margin:0,fontSize:15,fontWeight:600,lineHeight:1.55,color:'var(--ink-soft)'}}>{d}</p>
+</div>)}
+</div>
+<div style={{display:'flex',gap:10,justifyContent:'center',flexWrap:'wrap',marginTop:28}}>
+{['Events — host paid events','Products — sell products & services','Apps — sell access & subscriptions','Courses — charge for access','Communities — members-only access'].map(t=><span key={t} style={{background:'var(--sun-yellow-soft)',borderRadius:999,padding:'9px 18px',fontFamily:'var(--font-body)',fontWeight:700,fontSize:14,color:'var(--ink)'}}>{t}</span>)}
+</div>
+</div>;
+}
+function MakeSafety(){
+return <div style={{background:'var(--ink)',padding:'64px 0'}}>
+<div style={{maxWidth:1180,margin:'0 auto',padding:'0 24px',display:'grid',gridTemplateColumns:'1fr 1fr',gap:48,alignItems:'center'}}>
+<div>
+<div style={{display:'flex',alignItems:'center',gap:12,marginBottom:14}}><MFace size={44}/><h2 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:36,color:'#fff'}}>Ask Luna.</h2></div>
+<p style={{margin:0,fontSize:18,fontWeight:600,lineHeight:1.6,color:'#fff',opacity:.85,maxWidth:440}}>Luna is an AI assistant for everything you do in the world of Moonrise. She starts getting to know you from the first conversation.</p>
+</div>
+<div style={{display:'flex',flexDirection:'column',gap:12}}>
+{['Ask her anything','Create together','See insights, tips, and analytics','Get 24/7 support from an agent who knows you'].map(t=><div key={t} style={{background:'rgba(255,255,255,.07)',border:'1px solid rgba(255,255,255,.12)',borderRadius:16,padding:'14px 20px',fontFamily:'var(--font-body)',fontWeight:700,fontSize:16,color:'#fff'}}>{t}</div>)}
+</div>
+</div></div>;
+}
+function MakeMagic(){
+return <div style={{background:'var(--sand)',padding:'72px 0'}}>
+<div style={{maxWidth:800,margin:'0 auto',padding:'0 24px'}}>
+<span style={{fontFamily:'var(--font-body)',fontWeight:800,fontSize:13,letterSpacing:'.08em',textTransform:'uppercase',color:'var(--accent-primary)'}}>For founders & experts</span>
+<h2 style={{margin:'10px 0 0',fontFamily:'var(--font-display)',fontWeight:800,fontSize:38,color:'var(--ink)'}}>The magic of the idea.</h2>
+<div style={{display:'flex',flexDirection:'column',gap:18,marginTop:24,fontSize:18,lineHeight:1.6,color:'var(--ink)',fontWeight:600}}>
+<p style={{margin:0}}><b>The bet: chat is the wrong container.</b> Chatbots end at the answer. Here every conversation produces a real artifact — an event with RSVPs, an app with players, a course with students — that lives on after the chat.</p>
+<p style={{margin:0}}><b>Distribution is built in.</b> Creations are shareable objects on a network, not files on a desktop. Import your contacts, publish with a link, build an audience — the share step is where compounding starts.</p>
+<p style={{margin:0}}><b>Earn closes the loop.</b> Stripe-connected monetization turns hobbyists into operators: paid events, member communities, app subscriptions. The platform takes creation from expression to livelihood.</p>
+<p style={{margin:0}}><b>Luna is the layer, not the product.</b> Unlike concepts I & II, the agent recedes — she's the builder and analyst behind every surface. The bet is that people fall in love with what they make, not who they chat with.</p>
+</div>
+</div>
+</div>;
+}
+function MakeFeedback(){
+return <div style={{maxWidth:1180,margin:'0 auto',padding:'80px 24px 100px',textAlign:'center'}}>
+<div style={{display:'flex',justifyContent:'center',marginBottom:18}}><MFace size={56}/></div>
+<h2 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:36,color:'var(--ink)'}}>Please give me your feedback.</h2>
+<p style={{margin:'12px auto 0',fontSize:17,fontWeight:600,lineHeight:1.6,color:'var(--ink-soft)',maxWidth:500}}>We're trying to get to the bottom of this idea — especially what kills it. Add your thoughts to the shared note.</p>
+<div style={{marginTop:26}}><MBtn tone="pink" href="#">Share your thoughts →</MBtn></div>
+<p style={{fontSize:13,fontWeight:600,color:'var(--ink-faint)',marginTop:12}}>Opens a shared Apple Note.</p>
+</div>;
+}
+Object.assign(window,{MakeNav,MakeHero,MakeHow,MakeSafety,MakeMagic,MakeFeedback,MFace,MBtn});
+</script>
+</body></html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<meta property="og:title" content="Moonrise — Meet Luna">
+<meta property="og:type" content="website">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Moonrise — Meet Luna</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Colors */
+  --ink: #1A1025;
+  --ink-soft: rgba(26,16,37,.62);
+  --ink-faint: rgba(26,16,37,.36);
+  --surface-page: #FFF9F1;
+  --paper: #FFFFFF;
+  --cream: #FFF9F1;
+  --sand: #F5EFE6;
+  --line: rgba(26,16,37,.10);
+
+  /* Accent */
+  --accent-primary: #7C3AED;
+  --sun-pink: #F472B6;
+  --sun-violet-soft: rgba(124,58,237,.10);
+  --sun-yellow-soft: rgba(251,191,36,.18);
+
+  /* Gradients */
+  --gradient-sunset: linear-gradient(135deg, #7C3AED 0%, #EC4899 50%, #F59E0B 100%);
+
+  /* Shadows */
+  --shadow-button: 0 4px 20px rgba(124,58,237,.35);
+  --shadow-card: 0 8px 32px rgba(26,16,37,.10);
+  --shadow-raised: 0 20px 60px rgba(26,16,37,.14);
+
+  /* Typography */
+  --font-display: 'Nunito', 'Varela Round', system-ui, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--surface-page);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+html,body{margin:0;background:var(--surface-page)}
+@keyframes lunaDot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+@keyframes lunaFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+</style></head><body><div id="root"></div>
+
+
+<script type="text/babel">
+const NOTE='https://www.icloud.com/notes/01bmXQc67EUzA38ILkdFxG3WA';
+function Btn({children,href,tone='violet',size='lg',onClick}){
+const bg=tone==='violet'?'var(--accent-primary)':tone==='pink'?'var(--sun-pink)':'var(--ink)';
+const [hov,setHov]=React.useState(false);
+return <a href={href||'#'} onClick={onClick} target={href&&href.startsWith('http')?'_blank':undefined}
+onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}
+style={{display:'inline-block',fontFamily:'var(--font-display)',fontWeight:700,fontSize:size==='lg'?19:16,color:'#fff',background:bg,padding:size==='lg'?'16px 34px':'11px 24px',borderRadius:999,boxShadow:'var(--shadow-button)',transform:hov?'translateY(-2px)':'none',transition:'all .18s cubic-bezier(.34,1.56,.64,1)',filter:hov?'brightness(1.08)':'none'}}>{children}</a>;
+}
+function Nav(){
+return <div style={{position:'sticky',top:0,zIndex:50,background:'rgba(255,249,241,.85)',backdropFilter:'blur(12px)',borderBottom:'1px solid var(--line)'}}>
+<div style={{maxWidth:1180,margin:'0 auto',display:'flex',alignItems:'center',justifyContent:'space-between',padding:'12px 24px'}}>
+<div style={{display:'flex',alignItems:'center',gap:10}}><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='34' viewBox='0 0 120 34'%3E%3Ccircle cx='17' cy='17' r='14' fill='%237C3AED' opacity='.15'/%3E%3Ccircle cx='17' cy='17' r='10' fill='%237C3AED' opacity='.3'/%3E%3Ccircle cx='17' cy='17' r='6' fill='%237C3AED'/%3E%3C/svg%3E" style={{height:34}} alt=""/><span style={{fontFamily:'var(--font-display)',fontWeight:800,fontSize:21,color:'var(--ink)'}}>moonrise</span></div>
+<div style={{display:'flex',alignItems:'center',gap:18}}>
+<Btn size="sm" onClick={e=>{e.preventDefault();const el=document.getElementById('phone');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-120,behavior:'smooth'})}}>Say blork 👋</Btn>
+</div></div></div>;
+}
+function Hero(){
+const {LunaFace}=window;
+return <div style={{maxWidth:1180,margin:'0 auto',padding:'72px 24px 40px',display:'grid',gridTemplateColumns:'1.15fr 1fr',gap:48,alignItems:'center'}}>
+<div>
+<div style={{display:'inline-flex',alignItems:'center',gap:10,background:'var(--sun-violet-soft)',borderRadius:999,padding:'7px 16px 7px 8px',marginBottom:22}}><LunaFace size={28}/><span style={{fontFamily:'var(--font-body)',fontWeight:800,fontSize:14,color:'var(--accent-primary)'}}>Introducing Luna — a curious alien from the world of Moonrise</span></div>
+<h1 style={{margin:0,fontSize:'clamp(56px,6.5vw,88px)',lineHeight:1.02,fontFamily:'var(--font-display)',fontWeight:800,color:'var(--ink)',letterSpacing:'-0.015em'}}>Hello,<br/><span style={{background:'var(--gradient-sunset)',WebkitBackgroundClip:'text',backgroundClip:'text',color:'transparent'}}>Human.</span></h1>
+<p style={{margin:'22px 0 0',fontSize:22,lineHeight:1.5,color:'var(--ink)',fontWeight:600,maxWidth:520}}>A world where kids learn, create, explore, and play with AI — and parents see everything.</p>
+<div style={{display:'flex',alignItems:'center',gap:16,marginTop:30}}>
+<Btn onClick={e=>{e.preventDefault();const el=document.getElementById('phone');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-120,behavior:'smooth'})}}>Say blork to Luna 👋</Btn>
+<span style={{fontSize:13.5,fontWeight:600,color:'var(--ink-soft)',maxWidth:200,lineHeight:1.4}}>Blork is the customary first greeting in the world of Moonrise.</span>
+</div>
+<div style={{display:'flex',gap:28,marginTop:44}}>
+{[['6','modes, one companion'],['0','ads, ever'],['100%','visible to parents']].map(([n,l])=><div key={l}><div style={{fontFamily:'var(--font-display)',fontWeight:800,fontSize:32,color:'var(--ink)'}}>{n}</div><div style={{fontSize:13.5,fontWeight:700,color:'var(--ink-soft)'}}>{l}</div></div>)}
+</div>
+</div>
+<div id="phone" style={{display:'flex',justifyContent:'center',animation:'lunaFloat 7s ease-in-out infinite'}}>
+<div style={{transform:'scale(.92)',transformOrigin:'top center'}}>
+<window.IOSDevice title="">
+<window.LunaScreen/>
+</window.IOSDevice>
+</div>
+</div>
+</div>;
+}
+function Ticker(){
+const items=['Build old Yankee Stadium in Minecraft','A 6th-grade science course for Logan','Turn Sally into an Axolotl','Start a dog walking business','Fix my golf slice',"The world's best chocolate soufflé",'How big are black holes?','Design and sew my own dress','Land my first ollie','20 reading lessons about monster trucks'];
+return <div style={{overflow:'hidden',padding:'8px 0 56px'}}>
+<div style={{display:'flex',gap:12,width:'max-content',animation:'lunaTicker 45s linear infinite'}}>
+{[...items,...items].map((t,i)=><span key={i} style={{flex:'none',background:'var(--paper)',border:'1px solid var(--line)',borderRadius:999,padding:'10px 20px',fontFamily:'var(--font-body)',fontSize:15,fontWeight:700,color:'var(--ink-soft)',boxShadow:'0 2px 6px rgba(51,35,91,.05)'}}>{t}</span>)}
+</div>
+<style>{'@keyframes lunaTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}'}</style>
+</div>;
+}
+function Modes(){
+const {MODE_COLORS}=window;
+const modes=[['Learn','Go way beyond school and grades. Courses, stories, and lessons built around your kid.'],['Create','Make things in real life — recipes, paintings, apps, businesses, 3D printing.'],['Sports','24/7 coaching. Share videos, get instant feedback and practice plans.'],['Play','Games, stickers, images, and videos to share with friends.'],['Explore','Thousands of curated things to do. Less prompting, more doing.'],['Family','Parents see everything. Monitoring, alerts, and controls that actually work.']];
+return <div style={{maxWidth:1180,margin:'0 auto',padding:'64px 24px'}}>
+<div style={{textAlign:'center',marginBottom:40}}>
+<h2 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:44,color:'var(--ink)'}}>One Luna. Six modes.</h2>
+<p style={{margin:'12px auto 0',fontSize:18,fontWeight:600,color:'var(--ink-soft)',maxWidth:520,lineHeight:1.55}}>Try each one in the phone above — every mode is the same companion, pointed at a different kind of curiosity.</p>
+</div>
+<div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:20}}>
+{modes.map(([m,d])=><div key={m} style={{background:'var(--paper)',border:'1px solid var(--line)',borderRadius:24,boxShadow:'var(--shadow-card)',padding:'26px 26px 24px'}}>
+<div style={{width:44,height:44,borderRadius:'58% 42% 55% 45% / 52% 55% 45% 48%',background:MODE_COLORS[m],marginBottom:16}}></div>
+<h3 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:700,fontSize:23,color:'var(--ink)'}}>{m} mode</h3>
+<p style={{margin:'8px 0 0',fontSize:15.5,fontWeight:600,lineHeight:1.55,color:'var(--ink-soft)'}}>{d}</p>
+</div>)}
+</div>
+</div>;
+}
+function Trust(){
+return <div style={{background:'var(--ink)',padding:'72px 0'}}>
+<div style={{maxWidth:1180,margin:'0 auto',padding:'0 24px',display:'grid',gridTemplateColumns:'1fr 1fr',gap:56,alignItems:'center'}}>
+<div>
+<h2 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:40,color:'#fff',lineHeight:1.15}}>You'll never be in the dark.</h2>
+<p style={{margin:'16px 0 0',fontSize:18,fontWeight:600,lineHeight:1.6,color:'#fff',opacity:.85,maxWidth:440}}>Every conversation your kids have with Luna is visible to you — with best-in-class security, data privacy, and parental controls.</p>
+</div>
+<div style={{display:'flex',flexDirection:'column',gap:14}}>
+{[['AI-powered monitoring and alerts','We put our best models on this and run audits weekly.'],['COPPA compliant','No advertising, no data sharing, no sketchy behavior.'],['Industry-leading parental controls','You can customize just about everything.']].map(([t,d])=><div key={t} style={{background:'rgba(255,255,255,.07)',border:'1px solid rgba(255,255,255,.12)',borderRadius:18,padding:'18px 22px'}}>
+<div style={{fontFamily:'var(--font-display)',fontWeight:700,fontSize:19,color:'#fff'}}>{t}</div>
+<div style={{fontSize:14.5,fontWeight:600,color:'#fff',opacity:.75,marginTop:4}}>{d}</div>
+</div>)}
+</div>
+</div></div>;
+}
+function Magic(){
+return <div style={{background:'var(--sand)',padding:'72px 0'}}>
+<div style={{maxWidth:800,margin:'0 auto',padding:'0 24px'}}>
+<span style={{fontFamily:'var(--font-body)',fontWeight:800,fontSize:13,letterSpacing:'.08em',textTransform:'uppercase',color:'var(--accent-primary)'}}>For founders & experts</span>
+<h2 style={{margin:'10px 0 0',fontFamily:'var(--font-display)',fontWeight:800,fontSize:38,color:'var(--ink)'}}>Why agent-as-product?</h2>
+<div style={{display:'flex',flexDirection:'column',gap:18,marginTop:24,fontSize:18,lineHeight:1.6,color:'var(--ink)',fontWeight:600}}>
+<p style={{margin:0}}><b>No app to learn.</b> The product is a conversation. Kids already know how to talk; the interface disappears and Luna's character does the onboarding.</p>
+<p style={{margin:0}}><b>Character is the retention loop.</b> A companion with a name, a world, and a customary greeting builds attachment no feature list can — kids come back for <i>her</i>, not for "AI".</p>
+<p style={{margin:0}}><b>Trust is the moat.</b> Kid-safety-first — full visibility, weekly audits, COPPA, no ads — is expensive to retrofit and is the reason parents pick this over a general chatbot.</p>
+<p style={{margin:0}}><b>It extends Moonrise</b> — creativity, wellness, and play with no bells and no grades — from physical spaces into a companion kids carry everywhere.</p>
+</div>
+</div></div>;
+}
+function Feedback(){
+const {LunaFace}=window;
+return <div style={{maxWidth:1180,margin:'0 auto',padding:'80px 24px 100px',textAlign:'center'}}>
+<div style={{display:'flex',justifyContent:'center',marginBottom:18}}><LunaFace size={56}/></div>
+<h2 style={{margin:0,fontFamily:'var(--font-display)',fontWeight:800,fontSize:36,color:'var(--ink)'}}>Please give me your feedback.</h2>
+<p style={{margin:'12px auto 0',fontSize:17,fontWeight:600,lineHeight:1.6,color:'var(--ink-soft)',maxWidth:500}}>We're trying to get to the bottom of this idea — especially what kills it. Add your thoughts to the shared note.</p>
+<div style={{marginTop:26}}><Btn tone="pink" href={NOTE}>Share your thoughts →</Btn></div>
+<p style={{fontSize:13,fontWeight:600,color:'var(--ink-faint)',marginTop:12}}>Opens a shared Apple Note.</p>
+</div>;
+}
+function Page(){
+return <div>
+<Nav/>
+<Hero/>
+<Ticker/>
+<Modes/>
+<Trust/>
+<Magic/>
+<Feedback/>
+</div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Page/>);
+</script><script type="text/babel">
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+// Copied omelette starter. Re-running copy_starter_component with this kind overwrites this file with the latest version (page content is unaffected).
+
+/* BEGIN USAGE */
+// iOS.jsx — Simplified iOS 26 (Liquid Glass) device frame
+// Based on the iOS 26 UI Kit + Figma status bar spec. No assets, no deps.
+// Exports (to window): IOSDevice, IOSStatusBar, IOSNavBar, IOSGlassPill, IOSList, IOSListRow, IOSKeyboard
+//
+// Usage — wrap your screen content in <IOSDevice> to get the bezel, status bar
+// and home indicator (props: title, dark, keyboard):
+//
+//   <IOSDevice title="Settings">
+//     ...your screen content...
+//   </IOSDevice>
+//   <IOSDevice dark title="Search" keyboard>…</IOSDevice>
+/* END USAGE */
+
+// ─────────────────────────────────────────────────────────────
+// Status bar
+// ─────────────────────────────────────────────────────────────
+function IOSStatusBar({ dark = false, time = '9:41' }) {
+  const c = dark ? '#fff' : '#000';
+  return (
+    <div style={{
+      display: 'flex', gap: 154, alignItems: 'center', justifyContent: 'center',
+      padding: '21px 24px 19px', boxSizing: 'border-box',
+      position: 'relative', zIndex: 20, width: '100%',
+    }}>
+      <div style={{ flex: 1, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 1.5 }}>
+        <span style={{
+          fontFamily: '-apple-system, "SF Pro", system-ui', fontWeight: 590,
+          fontSize: 17, lineHeight: '22px', color: c,
+        }}>{time}</span>
+      </div>
+      <div style={{ flex: 1, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7, paddingTop: 1, paddingRight: 1 }}>
+        <svg width="19" height="12" viewBox="0 0 19 12">
+          <rect x="0" y="7.5" width="3.2" height="4.5" rx="0.7" fill={c}/>
+          <rect x="4.8" y="5" width="3.2" height="7" rx="0.7" fill={c}/>
+          <rect x="9.6" y="2.5" width="3.2" height="9.5" rx="0.7" fill={c}/>
+          <rect x="14.4" y="0" width="3.2" height="12" rx="0.7" fill={c}/>
+        </svg>
+        <svg width="17" height="12" viewBox="0 0 17 12">
+          <path d="M8.5 3.2C10.8 3.2 12.9 4.1 14.4 5.6L15.5 4.5C13.7 2.7 11.2 1.5 8.5 1.5C5.8 1.5 3.3 2.7 1.5 4.5L2.6 5.6C4.1 4.1 6.2 3.2 8.5 3.2Z" fill={c}/>
+          <path d="M8.5 6.8C9.9 6.8 11.1 7.3 12 8.2L13.1 7.1C11.8 5.9 10.2 5.1 8.5 5.1C6.8 5.1 5.2 5.9 3.9 7.1L5 8.2C5.9 7.3 7.1 6.8 8.5 6.8Z" fill={c}/>
+          <circle cx="8.5" cy="10.5" r="1.5" fill={c}/>
+        </svg>
+        <svg width="27" height="13" viewBox="0 0 27 13">
+          <rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke={c} strokeOpacity="0.35" fill="none"/>
+          <rect x="2" y="2" width="20" height="9" rx="2" fill={c}/>
+          <path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill={c} fillOpacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Liquid glass pill — blur + tint + shine
+// ─────────────────────────────────────────────────────────────
+function IOSGlassPill({ children, dark = false, style = {} }) {
+  return (
+    <div style={{
+      height: 44, minWidth: 44, borderRadius: 9999,
+      position: 'relative', overflow: 'hidden',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      boxShadow: dark
+        ? '0 2px 6px rgba(0,0,0,0.35), 0 6px 16px rgba(0,0,0,0.2)'
+        : '0 1px 3px rgba(0,0,0,0.07), 0 3px 10px rgba(0,0,0,0.06)',
+      ...style,
+    }}>
+      {/* blur + tint */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 9999,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        background: dark ? 'rgba(120,120,128,0.28)' : 'rgba(255,255,255,0.5)',
+      }} />
+      {/* shine */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 9999,
+        boxShadow: dark
+          ? 'inset 1.5px 1.5px 1px rgba(255,255,255,0.15), inset -1px -1px 1px rgba(255,255,255,0.08)'
+          : 'inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)',
+        border: dark ? '0.5px solid rgba(255,255,255,0.15)' : '0.5px solid rgba(0,0,0,0.06)',
+      }} />
+      <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', padding: '0 4px' }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Navigation bar — glass pills + large title
+// ─────────────────────────────────────────────────────────────
+function IOSNavBar({ title = 'Title', dark = false, trailingIcon = true }) {
+  const muted = dark ? 'rgba(255,255,255,0.6)' : '#404040';
+  const text = dark ? '#fff' : '#000';
+  const pillIcon = (content) => (
+    <IOSGlassPill dark={dark}>
+      <div style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {content}
+      </div>
+    </IOSGlassPill>
+  );
+  return (
+    <div style={{
+      display: 'flex', flexDirection: 'column', gap: 10,
+      paddingTop: 62, paddingBottom: 10, position: 'relative', zIndex: 5,
+    }}>
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 16px',
+      }}>
+        {/* back chevron */}
+        {pillIcon(
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" style={{ marginLeft: -1 }}>
+            <path d="M10 2L2 10l8 8" stroke={muted} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        )}
+        {/* trailing ellipsis */}
+        {trailingIcon && pillIcon(
+          <svg width="22" height="6" viewBox="0 0 22 6">
+            <circle cx="3" cy="3" r="2.5" fill={muted}/>
+            <circle cx="11" cy="3" r="2.5" fill={muted}/>
+            <circle cx="19" cy="3" r="2.5" fill={muted}/>
+          </svg>
+        )}
+      </div>
+      {/* large title */}
+      <div style={{
+        padding: '0 16px',
+        fontFamily: '-apple-system, system-ui',
+        fontSize: 34, fontWeight: 700, lineHeight: '41px',
+        color: text, letterSpacing: 0.4,
+      }}>{title}</div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Grouped list (inset card, r:26) + row (52px)
+// ─────────────────────────────────────────────────────────────
+function IOSListRow({ title, detail, icon, chevron = true, isLast = false, dark = false }) {
+  const text = dark ? '#fff' : '#000';
+  const sec = dark ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)';
+  const ter = dark ? 'rgba(235,235,245,0.3)' : 'rgba(60,60,67,0.3)';
+  const sep = dark ? 'rgba(84,84,88,0.65)' : 'rgba(60,60,67,0.12)';
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', minHeight: 52,
+      padding: '0 16px', position: 'relative',
+      fontFamily: '-apple-system, system-ui', fontSize: 17,
+      letterSpacing: -0.43,
+    }}>
+      {icon && (
+        <div style={{
+          width: 30, height: 30, borderRadius: 7, background: icon,
+          marginRight: 12, flexShrink: 0,
+        }} />
+      )}
+      <div style={{ flex: 1, color: text }}>{title}</div>
+      {detail && <span style={{ color: sec, marginRight: 6 }}>{detail}</span>}
+      {chevron && (
+        <svg width="8" height="14" viewBox="0 0 8 14" style={{ flexShrink: 0 }}>
+          <path d="M1 1l6 6-6 6" stroke={ter} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      )}
+      {!isLast && (
+        <div style={{
+          position: 'absolute', bottom: 0, right: 0,
+          left: icon ? 58 : 16, height: 0.5, background: sep,
+        }} />
+      )}
+    </div>
+  );
+}
+
+function IOSList({ header, children, dark = false }) {
+  const hc = dark ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)';
+  const bg = dark ? '#1C1C1E' : '#fff';
+  return (
+    <div>
+      {header && (
+        <div style={{
+          fontFamily: '-apple-system, system-ui', fontSize: 13,
+          color: hc, textTransform: 'uppercase',
+          padding: '8px 36px 6px', letterSpacing: -0.08,
+        }}>{header}</div>
+      )}
+      <div style={{
+        background: bg, borderRadius: 26,
+        margin: '0 16px', overflow: 'hidden',
+      }}>{children}</div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Device frame
+// ─────────────────────────────────────────────────────────────
+function IOSDevice({
+  children, width = 402, height = 874, dark = false,
+  title, keyboard = false,
+}) {
+  return (
+    // data-om-starter: inert presence marker — Claude Design's starter-usage
+    // probe reads it; it renders nothing. Keep it on this root element.
+    <div data-om-starter="ios-frame" style={{
+      width, height, borderRadius: 48, overflow: 'hidden',
+      position: 'relative', background: dark ? '#000' : '#F2F2F7',
+      boxShadow: '0 40px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.12)',
+      fontFamily: '-apple-system, system-ui, sans-serif',
+      WebkitFontSmoothing: 'antialiased',
+    }}>
+      {/* dynamic island */}
+      <div style={{
+        position: 'absolute', top: 11, left: '50%', transform: 'translateX(-50%)',
+        width: 126, height: 37, borderRadius: 24, background: '#000', zIndex: 50,
+      }} />
+      {/* status bar (absolute) */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10 }}>
+        <IOSStatusBar dark={dark} />
+      </div>
+      {/* nav + content */}
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        {title !== undefined && <IOSNavBar title={title} dark={dark} />}
+        <div style={{ flex: 1, overflow: 'auto' }}>{children}</div>
+        {keyboard && <IOSKeyboard dark={dark} />}
+      </div>
+      {/* home indicator — always on top */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 60,
+        height: 34, display: 'flex', justifyContent: 'center', alignItems: 'flex-end',
+        paddingBottom: 8, pointerEvents: 'none',
+      }}>
+        <div style={{
+          width: 139, height: 5, borderRadius: 100,
+          background: dark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.25)',
+        }} />
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Keyboard — iOS 26 liquid glass
+// ─────────────────────────────────────────────────────────────
+function IOSKeyboard({ dark = false }) {
+  const glyph = dark ? 'rgba(255,255,255,0.7)' : '#595959';
+  const sugg = dark ? 'rgba(255,255,255,0.6)' : '#333';
+  const keyBg = dark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.85)';
+
+  // special-key icons
+  const icons = {
+    shift: <svg width="19" height="17" viewBox="0 0 19 17"><path d="M9.5 1L1 9.5h4.5V16h8V9.5H18L9.5 1z" fill={glyph}/></svg>,
+    del: <svg width="23" height="17" viewBox="0 0 23 17"><path d="M7 1h13a2 2 0 012 2v11a2 2 0 01-2 2H7l-6-7.5L7 1z" fill="none" stroke={glyph} strokeWidth="1.6" strokeLinejoin="round"/><path d="M10 5l7 7M17 5l-7 7" stroke={glyph} strokeWidth="1.6" strokeLinecap="round"/></svg>,
+    ret: <svg width="20" height="14" viewBox="0 0 20 14"><path d="M18 1v6H4m0 0l4-4M4 7l4 4" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  };
+
+  const key = (content, { w, flex, ret, fs = 25, k } = {}) => (
+    <div key={k} style={{
+      height: 42, borderRadius: 8.5,
+      flex: flex ? 1 : undefined, width: w, minWidth: 0,
+      background: ret ? '#08f' : keyBg,
+      boxShadow: '0 1px 0 rgba(0,0,0,0.075)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: '-apple-system, "SF Compact", system-ui',
+      fontSize: fs, fontWeight: 458, color: ret ? '#fff' : glyph,
+    }}>{content}</div>
+  );
+
+  const row = (keys, pad = 0) => (
+    <div style={{ display: 'flex', gap: 6.5, justifyContent: 'center', padding: `0 ${pad}px` }}>
+      {keys.map(l => key(l, { flex: true, k: l }))}
+    </div>
+  );
+
+  return (
+    <div style={{
+      position: 'relative', zIndex: 15, borderRadius: 27, overflow: 'hidden',
+      padding: '11px 0 2px',
+      display: 'flex', flexDirection: 'column', alignItems: 'center',
+      boxShadow: dark
+        ? '0 -2px 20px rgba(0,0,0,0.09)'
+        : '0 -1px 6px rgba(0,0,0,0.018), 0 -3px 20px rgba(0,0,0,0.012)',
+    }}>
+      {/* liquid glass bg — same recipe as nav pills */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 27,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        background: dark ? 'rgba(120,120,128,0.14)' : 'rgba(255,255,255,0.25)',
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 27,
+        boxShadow: dark
+          ? 'inset 1.5px 1.5px 1px rgba(255,255,255,0.15)'
+          : 'inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)',
+        border: dark ? '0.5px solid rgba(255,255,255,0.15)' : '0.5px solid rgba(0,0,0,0.06)',
+        pointerEvents: 'none',
+      }} />
+
+      {/* autocorrect bar */}
+      <div style={{
+        display: 'flex', gap: 20, alignItems: 'center',
+        padding: '8px 22px 13px', width: '100%', boxSizing: 'border-box',
+        position: 'relative',
+      }}>
+        {['"The"', 'the', 'to'].map((w, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && <div style={{ width: 1, height: 25, background: '#ccc', opacity: 0.3 }} />}
+            <div style={{
+              flex: 1, textAlign: 'center',
+              fontFamily: '-apple-system, system-ui', fontSize: 17,
+              color: sugg, letterSpacing: -0.43, lineHeight: '22px',
+            }}>{w}</div>
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* key layout */}
+      <div style={{
+        display: 'flex', flexDirection: 'column', gap: 13,
+        padding: '0 6.5px', width: '100%', boxSizing: 'border-box',
+        position: 'relative',
+      }}>
+        {row(['q','w','e','r','t','y','u','i','o','p'])}
+        {row(['a','s','d','f','g','h','j','k','l'], 20)}
+        <div style={{ display: 'flex', gap: 14.25, alignItems: 'center' }}>
+          {key(icons.shift, { w: 45, k: 'shift' })}
+          <div style={{ display: 'flex', gap: 6.5, flex: 1 }}>
+            {['z','x','c','v','b','n','m'].map(l => key(l, { flex: true, k: l }))}
+          </div>
+          {key(icons.del, { w: 45, k: 'del' })}
+        </div>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          {key('ABC', { w: 92.25, fs: 18, k: 'abc' })}
+          {key('', { flex: true, k: 'space' })}
+          {key(icons.ret, { w: 92.25, ret: true, k: 'ret' })}
+        </div>
+      </div>
+
+      {/* bottom spacer (emoji+mic area, icons omitted) */}
+      <div style={{ height: 56, width: '100%', position: 'relative' }} />
+    </div>
+  );
+}
+
+Object.assign(window, {
+  IOSDevice, IOSStatusBar, IOSNavBar, IOSGlassPill, IOSList, IOSListRow, IOSKeyboard,
+});
+
+</script>
+<script type="text/babel">
+const LUNA_GRAD='linear-gradient(180deg,#F2AF25,#EC7A23,#E9527F,#A8489D,#7A5CA8)';
+const LUNA_BLOB='58% 42% 55% 45% / 52% 55% 45% 48%';
+function LunaFace({size=34}){return <div style={{width:size,height:size,flex:'none',background:LUNA_GRAD,borderRadius:LUNA_BLOB,display:'flex',alignItems:'center',justifyContent:'center'}}><div style={{display:'flex',gap:size*0.13}}><i style={{width:size*0.11,height:size*0.2,background:'#fff',borderRadius:99,display:'block'}}></i><i style={{width:size*0.11,height:size*0.2,background:'#fff',borderRadius:99,display:'block'}}></i></div></div>;}
+const CONVOS={
+Learn:[['u',"Clint is struggling with reading comprehension. Can you help?"],['l',"Blork! Of course. What's Clint into right now?"],['u',"Dinosaurs and monster trucks 🦖"],['l',"Perfect. I'll write 20 short stories mixing both — each one ends with us talking it through together. Here's story one: “The T-Rex Who Entered the Mud Derby”…"],['card','Reading quest · Story 1 of 20','The T-Rex Who Entered the Mud Derby']],
+Create:[['u',"Help me start a dog walking business in my neighborhood"],['l',"Blork! Love it. First: what should we call it? I made you a logo idea and a flyer draft."],['card','Sunny Paws · Flyer v1','$10/walk · Saturdays · Maple St'],['u',"Can we make a schedule for my 3 customers?"],['l',"Done — Biscuit at 9, Trooper at 10, Waffles at 11. I'll remind you each Saturday morning."]],
+Sports:[['u',"What's going on with my golf swing? Why am I always slicing it?"],['l',"Blork! Send me a video of your swing and I'll take a look. 🎥"],['u',"📹 swing_video.mov"],['l',"Got it. Your clubface is open at impact — grip is a touch weak. Try rotating your left hand one knuckle right. Want a 2-week practice plan to break 90?"]],
+Play:[['u',"Turn my friend Sally into an Axolotl"],['l',"Blork blork! 🎨 Here she is — Sally the Axolotl. Want stickers for your chat with her?"],['card','sally_axolotl.png','Tap to share with Sally'],['u',"YES and make a game where axolotls race"],['l',"On it — “Axolotl Grand Prix.” Pick a track: Coral Canyon or Bubble Bay?"]],
+Explore:[['l',"Blork! Feeling curious today? Here's what other kids are exploring:"],['card','Architecture for 5th graders','Course · 12 lessons'],['card',"How big are black holes?",'Question · 4 min'],['card',"The world's best chocolate soufflé",'Recipe · with oven timer'],['u',"the soufflé!! 🍫"],['l',"Excellent choice. Preheat to 375° and grab 4 eggs — I'll walk you through every step."]],
+Family:[['sys',"Parent view · Evelyn's activity"],['l',"This week Evelyn spent 3h 40m with me: cooking (2h), reading (1h), one question about volcanoes."],['card','Weekly digest','2 alerts · 0 flagged · audit passed'],['u',"Any flags I should know about?"],['l',"Nothing flagged. She asked to bake at midnight — I suggested Saturday morning instead. 🌙"]]};
+const MODE_COLORS={Learn:'#7A5CA8',Create:'#E9527F',Sports:'#EC7A23',Play:'#A8489D',Explore:'#F2AF25',Family:'#33235B'};
+function Bubble({m,visible}){
+const base={borderRadius:18,padding:'9px 13px',fontSize:14.5,fontWeight:600,lineHeight:1.4,maxWidth:'80%',opacity:visible?1:0,transform:visible?'translateY(0)':'translateY(8px)',transition:'all .35s cubic-bezier(.34,1.56,.64,1)'};
+if(m[0]==='u')return <div style={{...base,alignSelf:'flex-end',background:'#7A5CA8',color:'#fff',borderBottomRightRadius:6}}>{m[1]}</div>;
+if(m[0]==='l')return <div style={{display:'flex',gap:8,alignItems:'flex-end',alignSelf:'flex-start',maxWidth:'88%',opacity:visible?1:0,transform:visible?'none':'translateY(8px)',transition:'all .35s cubic-bezier(.34,1.56,.64,1)'}}><LunaFace size={26}/><div style={{...base,opacity:1,transform:'none',background:'#F6EEE1',color:'#33235B',borderBottomLeftRadius:6,maxWidth:'100%'}}>{m[1]}</div></div>;
+if(m[0]==='card')return <div style={{...base,alignSelf:'flex-start',marginLeft:34,background:'#fff',border:'1px solid #EBE1D2',boxShadow:'0 4px 14px rgba(51,35,91,.10)',borderRadius:14,padding:'12px 14px',width:'75%'}}><div style={{fontFamily:"'Baloo 2',sans-serif",fontWeight:700,fontSize:14,color:'#33235B'}}>{m[1]}</div><div style={{fontSize:12.5,color:'#6B5E8A',marginTop:2}}>{m[2]}</div><div style={{marginTop:8,height:6,borderRadius:99,background:LUNA_GRAD,opacity:.8}}></div></div>;
+return <div style={{...base,alignSelf:'center',background:'transparent',color:'#A79DBE',fontSize:12,fontWeight:800,letterSpacing:'.06em',textTransform:'uppercase'}}>{m[1]}</div>;
+}
+function Typing(){return <div style={{display:'flex',gap:8,alignItems:'flex-end',alignSelf:'flex-start'}}><LunaFace size={26}/><div style={{background:'#F6EEE1',borderRadius:18,borderBottomLeftRadius:6,padding:'12px 14px',display:'flex',gap:4}}>{[0,1,2].map(i=><span key={i} style={{width:7,height:7,borderRadius:'50%',background:'#A79DBE',display:'inline-block',animation:`lunaDot 1s ${i*0.15}s infinite`}}></span>)}</div></div>;}
+function LunaScreen(){
+const [mode,setMode]=React.useState('Sports');
+const [shown,setShown]=React.useState(0);
+const [typing,setTyping]=React.useState(false);
+const [extra,setExtra]=React.useState([]);
+const [draft,setDraft]=React.useState('');
+const scrollRef=React.useRef(null);
+const convo=CONVOS[mode];
+React.useEffect(()=>{
+setShown(0);setExtra([]);setTyping(false);
+let i=0,alive=true,timers=[];
+const step=()=>{if(!alive)return;
+if(i>=convo.length)return;
+const next=convo[i];
+if(next[0]==='l'||next[0]==='card'){setTyping(true);timers.push(setTimeout(()=>{if(!alive)return;setTyping(false);i++;setShown(i);timers.push(setTimeout(step,600));},next[0]==='l'?900:500));}
+else{i++;setShown(i);timers.push(setTimeout(step,700));}
+};
+timers.push(setTimeout(step,400));
+return ()=>{alive=false;timers.forEach(clearTimeout);};
+},[mode]);
+React.useEffect(()=>{const el=scrollRef.current;if(el)el.scrollTop=el.scrollHeight;},[shown,typing,extra]);
+const send=()=>{const t=draft.trim();if(!t)return;setDraft('');
+setExtra(x=>[...x,['u',t]]);setTyping(true);
+setTimeout(()=>{setTyping(false);setExtra(x=>[...x,['l',"Blork! I'd love to help with that. (This is a concept demo — but on the real Moonrise, we'd already be doing it.)"]]);},1100);};
+return <div style={{display:'flex',flexDirection:'column',height:'100%',background:'#FFF9F1',fontFamily:"'Nunito',sans-serif"}}>
+<div style={{display:'flex',alignItems:'center',gap:10,padding:'8px 16px 10px',borderBottom:'1px solid #EBE1D2',background:'#FFF9F1'}}>
+<LunaFace size={36}/>
+<div style={{flex:1}}><div style={{fontFamily:"'Baloo 2',sans-serif",fontWeight:700,fontSize:17,color:'#33235B',lineHeight:1.1}}>Luna</div><div style={{fontSize:12,fontWeight:700,color:'#3E9B6C'}}>● always awake</div></div>
+<div style={{fontSize:11,fontWeight:800,color:'#A79DBE',letterSpacing:'.05em'}}>MOONRISE</div>
+</div>
+<div style={{display:'flex',gap:6,padding:'10px 12px',overflowX:'auto',flex:'none'}}>
+{Object.keys(CONVOS).map(m=><button key={m} onClick={()=>setMode(m)} style={{flex:'none',fontFamily:"'Nunito',sans-serif",fontWeight:800,fontSize:12.5,padding:'6px 13px',borderRadius:99,border:'none',cursor:'pointer',background:mode===m?MODE_COLORS[m]:'#F6EEE1',color:mode===m?'#fff':'#6B5E8A',transition:'all .2s'}}>{m}</button>)}
+</div>
+<div ref={scrollRef} style={{flex:1,overflowY:'auto',padding:'6px 12px 12px',display:'flex',flexDirection:'column',gap:10}}>
+{convo.map((m,i)=><Bubble key={mode+i} m={m} visible={i<shown}/>).slice(0,Math.max(shown,0))}
+{extra.map((m,i)=><Bubble key={'x'+i} m={m} visible={true}/>)}
+{typing&&<Typing/>}
+</div>
+<div style={{display:'flex',gap:8,padding:'8px 12px 10px',background:'#FFF9F1'}}>
+<input value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')send();}} placeholder="Say blork to Luna…" style={{flex:1,fontFamily:"'Nunito',sans-serif",fontWeight:600,fontSize:14.5,color:'#33235B',padding:'11px 16px',borderRadius:99,border:'1.5px solid #EBE1D2',background:'#fff',outline:'none'}}/>
+<button onClick={send} style={{width:42,height:42,borderRadius:'50%',border:'none',background:'#7A5CA8',color:'#fff',fontSize:18,cursor:'pointer',flex:'none'}}>↑</button>
+</div>
+</div>;
+}
+Object.assign(window,{LunaScreen,LunaFace,LUNA_GRAD,LUNA_BLOB,MODE_COLORS,CONVOS});
+</script>
+</body></html>
